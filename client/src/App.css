@@ -1,0 +1,118 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 15vw;
+}
+
+.App-header {
+  /* background-color: #9c9a1f;
+  height: 5%;
+  /* padding: 10px; */
+  color: #222; 
+}
+
+.App-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+}
+
+cite {
+  font-weight: bold;
+}
+table {
+  align-content: center;
+  margin: auto;
+}
+td {
+  padding: 10px;
+}
+
+.App-intro {
+  font-size: large;
+}
+.cap-first-letter:first-letter {
+  text-transform: capitalize;
+}
+.col-sm-6,
+col-md-4 {
+  border: 1px;
+}
+@keyframes App-logo-spin {
+  from {
+     transform: rotate(0deg);
+  }
+  to {
+     transform: rotate(360deg);
+  }
+}
+
+/* Below is customize CSS */
+.showlink {
+  padding: 0.4rem 0.8rem;
+  background-color: white;
+  border-radius: 3px;
+  color: #1e8678;
+  text-decoration: none !important;
+}
+
+.showlink:hover {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+
+
+.pagination ul {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.pagination li {
+  display: inline-block;
+  border-style: solid;
+}
+
+.pagination .break a {
+  cursor: default;
+}
+
+
+.navbar {
+  background-color: rgb(248, 206, 90);
+  /* background-color: rgba(216, 62, 62, 0.685); */
+}
+
+.navbar-inverse .navbar-brand {
+  color: #194b85;
+  font-weight: bold;
+  font-size: 3vw;
+  font-family:sans-serif;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color: #194b85;
+  font-weight: bold;
+  font-size:1.8vw;
+  font-family:sans-serif;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+  background-color:rgba(199, 71, 71, 0.685);
+}
+.infoIntro {
+  margin-left:5%;
+  margin-right:5%;
+  font-size:3vw;
+  font-family:sans-serif;
+}
+
+.Error404 {
+  font-size:3vw;
+  color:red;
+}

@@ -46,5 +46,109 @@ router.post("/", async (req, res) => {
       res.status(400).json({ error: "Post Error" });
     }
 });
+// unnecessary user put
+router.patch("/:id", async (req, res) => {
+  const updatedData = req.body;
+  try {
+    await userData.getUserById(req.params.id);
+  } catch (e) {
+    res.status(404).json({ error: "User not Found"});
+  }
+
+  if (!updatedData) {
+    res.status(400).json({ error: "You must provide data to update a User!" });
+    return;
+  }
+
+  if (updatedData.pw) {
+    if (typeof updatedData.pw !== "string") {
+      res.status(400).json({ error: "You must provide a legal pw!" });
+      return;
+    }
+  }
+  if (updatedData.intro) {
+    if (typeof updatedData.intro !== "string") {
+      res.status(400).json({ error: "You must provide a legal intro!" });
+      return;
+    }
+  }
+  // more error check require 
+  // if (updatedData.description) {
+  //   if (typeof updatedData.description !== "string") {
+  //     res.status(400).json({ error: "You must provide legal description" });
+  //     return;
+  //   }
+  // }
+
+  try {
+    const updatedUser = await userData.updateUser(req.params.id, updatedData);
+    res.json(updatedUser);
+  } catch (e) {
+    res.status(400).json({error: "Update Error"});
+  }
+
+}); //patch end
+
+router.post("/:id/enroll_ev", async (req, res) => {
+  const updatedData = req.body;
+  if (!updatedData) {
+    res.status(400).json({ error: "You must provide details for enrolled events!" });
+    return;
+  }
+
+  if (!updatedData.eventId) {
+    res.status(400).json({ error: "You must provide a legal eventID!" });
+    return;
+  }
+
+  if (!updatedData.title || typeof updatedData.title !== "string") {
+    res.status(400).json({ error: "You must provide legal title" });
+    return;
+  }
+
+  if (!updatedData.date || typeof updatedData.date !== "string") {
+    res.status(400).json({ error: "You must provide legal date" });
+    return;
+  }
+
+  if (!updatedData.time || typeof updatedData.time !== "string") {
+    res.status(400).json({ error: "You must provide legal time" });
+    return;
+  }
+
+  try {
+    await userData.getUserById(req.params.id);
+  } catch (e) {
+    res.status(404).json({error: "User not found"});
+  }
+  
+  try {
+    //console.log(updatedData);
+    const updatedUser = await userData.addUserEnroll(req.params.id, updatedData);
+    res.json(updatedUser);
+  } catch (e) {
+    res.status(400).json({error: "User Enrolled Event Adding Error"});
+  }
+}); //addUserEnroll end
+
+router.delete("/:userId/:eventId", async (req, res) => {
+  try {
+    const temp = await userData.getUserById(req.params.userId);
+    
+    try {
+      const test = temp.enroll_ev.find(ev => ev.eventId === req.params.eventId);
+      if (test === undefined) {
+        throw error;
+      }
+      await userData.removeUserEnroll(req.params.userId, req.params.eventId);
+      res.send();
+    } catch (e) {
+      res.status(404).json({ error: "Event not found"});
+    }
+  } catch (e) {
+    res.status(404).json({ error: "User ID not found"});
+  }
+
+}); //delete end
 
 module.exports = router;

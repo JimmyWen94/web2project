@@ -205,10 +205,10 @@ router.post("/:id/enroll", async (req, res) => {
         await eventData.removeEnroll(req.params.eventId, req.params.userId);
         res.send();
       } catch (e) {
-        res.status(404).json({ error: "Event not found"});
+        res.status(404).json({ error: "User not found"});
       }
     } catch (e) {
-      res.status(404).json({ error: "User ID not found"});
+      res.status(404).json({ error: "Event ID not found"});
     }
 
   }); //delete end

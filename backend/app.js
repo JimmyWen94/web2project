@@ -3,11 +3,12 @@ const app = express();
 const configRoutes = require("./routes");
 const bodyParser = require("body-parser"); //json
 const cors = require('cors');
+const static = express.static(__dirname + "/public");
 
 app.use(bodyParser.json());
 app.use(cors());
 // let urlMap = new Map();
-
+app.use("/public", static);
 // const logger = function (req,res,next) {
 //   console.log("---------Logging Middleware-------");
 //   console.log("Request Bodies: " + req.body);

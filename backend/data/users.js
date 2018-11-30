@@ -42,7 +42,7 @@ const exportedMethods = {
             LName: LName,
             photo: photo,
             intro: intro,
-            enrolled_ev: newEvArray,
+            enroll_ev: newEvArray,
             friends: newFriArray,
             safe_mode: safe_mode
         };
@@ -50,7 +50,74 @@ const exportedMethods = {
         const newInsert = await userCollection.insertOne(newUser);
         const newId = newInsert.insertedId;
         return await this.getUserById(newId);
+    },
+
+    async updateUser(id, updatedUser) {
+        const userCollection = await users();
+        let updatedUserData = {};
+        if (updatedUser.pw) {
+            updatedUserData.pw = updatedUser.pw;
+        }
+        if (updatedUser.fName) {
+            updatedUserData.fName = updatedUser.fName;
+        }
+        if (updatedUser.LName) {
+            updatedUserData.LName = updatedUser.LName;
+        }
+        if (updatedUser.photo) {
+            updatedUserData.photo = updatedUser.photo;
+        }
+        if (updatedUser.intro) {
+            updatedUserData.intro = updatedUser.intro;
+        }
+        if (updatedUser.safe_mode) {
+            updatedUserData.safe_mode = updatedUser.safe_mode;
+        }
+ 
+        // if (updatedUserData.completed !== 'undefined') {
+        //     updatedUserData.completed = Boolean(updatedUser.completed);
+        // }
+
+        let updateCommand = {
+            $set: updatedUserData
+        };
+        const query = {
+            _id: id
+        };
+        await userCollection.updateOne(query, updateCommand);
+
+        return await this.getUserById(id);
+    },
+
+    async addUserEnroll(userId, eventInfo) {
+        const userCollection = await users(); 
+        let newEventInfo = {};
+        //For now it will only pass id, title, date time for enroll_ev
+        newEventInfo.eventId = eventInfo.eventId;
+        newEventInfo.title = eventInfo.title;
+        newEventInfo.date = eventInfo.date;
+        newEventInfo.time = eventInfo.time;
+        await userCollection.updateOne({_id: userId}, {
+            $push: {
+                enroll_ev: newEventInfo
+            }
+        });
+        return await this.getUserById(userId);
+    },
+
+    async removeUserEnroll(userId, eventId) {
+        const userCollection = await users(); 
+        let updateCommand = await userCollection.updateOne({_id: userId}, {
+            $pull: {
+                enroll_ev: {
+                    eventId: eventId
+                }
+            }
+        });
+        return await this.getUserById(userId);
     }
+
+    //!!!!!! Missing Add friends and remove friends
 
 };
 
