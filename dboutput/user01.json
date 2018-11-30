@@ -1,0 +1,4 @@
+{"_id":"5bff81c2ea98964a64da4b2a","pw":"123","fName":"Wei","LName":"Zhang","photo":"zhang","intro":"I'm a graduate students in Stevens and I like pop music.","enrolled_ev":["5bff790e5cb3c442dc651d51"],"friends":["312321321"],"safe_mode":"0"}
+{"_id":"e92726e2-c6b8-4807-9ace-ab4332063cac","pw":"12345","fName":"Jill","LName":"Allen","photo":"jial","intro":"I'm a student in NYU.","enrolled_ev":[],"friends":[],"safe_mode":{"$numberInt":"0"}}
+{"_id":"7fe321aa-85a1-473a-8b05-8755407f1216","pw":"12333445","fName":"John","LName":"Smith","photo":"josm","intro":"I love social! GO DUCKS!","enrolled_ev":[],"friends":[],"safe_mode":"0"}
+{"_id":"4399d73d-c902-4a54-8dc7-e76043b974df","pw":"5567777","fName":"Mei","LName":"Wang","photo":"mewa","intro":"I'm a student in CUNY. I like photograph.","enrolled_ev":[],"friends":[],"safe_mode":"1"}
