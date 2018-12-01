@@ -115,10 +115,39 @@ const exportedMethods = {
             }
         });
         return await this.getUserById(userId);
-    }
+    },
 
     //!!!!!! Missing Add friends and remove friends
+    async addUserFriend(userId, friendInfo) {
+        const userCollection = await users(); 
+        let newFriendInfo = {};
+        // //For now it will only pass id, title, date time for enroll_ev
+        newFriendInfo.friendId = friendInfo.friendId;
+        let checkExist = await this.getUserById(friendInfo.friendId);
+        if (checkExist === null || undefined) {
+            throw "friendID DOES NOT EXIST";
+        }
+        // newFriendInfo.title = eventInfo.title;
+        // newFriendInfo.date = eventInfo.date;
+        await userCollection.updateOne({_id: userId}, {
+            $push: {
+               friends: newFriendInfo
+            }
+        });
+        return await this.getUserById(userId);
+    },
 
+    async removeUserFriend(userId, friendId) {
+        const userCollection = await users(); 
+        let updateCommand = await userCollection.updateOne({_id: userId}, {
+            $pull: {
+                friends: {
+                    friendId: friendId
+                }
+            }
+        });
+        return await this.getUserById(userId);
+    }
 };
 
 module.exports = exportedMethods;

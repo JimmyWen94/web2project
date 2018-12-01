@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import wzimg from "../img/userIMG/weizhang.jpg";
+
+import {Button, Glyphicon} from 'react-bootstrap'; 
 class Profile extends Component {
     constructor(props) {
        super(props);
@@ -30,7 +32,7 @@ class Profile extends Component {
     async getDataFromDb() {
         try {
           const response = await axios.get('http://localhost:3001/api/users/1a2cbe1c-20d1-409c-9e09-bccaaf2d995d',{crossdomain:true});
-          console.log(response);
+        //   console.log(response);
           this.setState({
               data:response.data,
               id: response.data.id,
@@ -41,6 +43,7 @@ class Profile extends Component {
               enroll_ev: response.data.enroll_ev,
               safe_mode: response.data.safe_mode
             });
+            
         } catch (e) {
           console.log(e);
         }
@@ -49,10 +52,19 @@ class Profile extends Component {
 
         // let imgSrc = "http://localhost:3001/public/assets/images/userIMG/" + this.state.photo;
         const {data} = this.state;
+        // console.log(data.enroll_ev);
+        let currentEvElement = this.state.enroll_ev.map(ev => 
+            <li className='li_pro_ev' key = {ev.eventId}>
+            {ev.title} 
+            <br/>
+            Date: {ev.date} @ {ev.time} 
+            </li>
+        );
+        
         return (
         
-           <div>
-               
+           <div className='pro_back'>
+               <div className='pro_before_ev'>
                 <p className='Profile'>
                 <img src={wzimg} className="userImage" alt="logo" />
                 </p>
@@ -60,11 +72,21 @@ class Profile extends Component {
                
                 <p className='pro_name'>
                     {data.fName} {data.LName}
+                    <Button className='pro_setting'>
+                        <Glyphicon glyph='cog' />
+                    </Button>
                 </p>
+
                 <p className='pro_intro'>
                     {data.intro}
                 </p>
-               
+                <p className='pro_ev_title'>
+                    Enrolled Event <Glyphicon glyph='arrow-down'/>
+                </p>
+                </div>
+                <p className='pro_ev_list'>
+                    {currentEvElement}
+                </p>
            </div>
        );
     

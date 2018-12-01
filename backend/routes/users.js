@@ -151,4 +151,57 @@ router.delete("/:userId/:eventId", async (req, res) => {
 
 }); //delete end
 
+router.post("/:id/addFriend", async (req, res) => {
+  const updatedData = req.body;
+  if (!updatedData) {
+    res.status(400).json({ error: "You must provide details for friends!" });
+    return;
+  }
+
+  if (!updatedData.friendId) {
+    res.status(400).json({ error: "You must provide a legal friendID!" });
+    return;
+  }
+
+  try {
+    await userData.getUserById(req.params.id);
+  } catch (e) {
+    res.status(404).json({error: "UserID not found"});
+  }
+
+  try {
+    await userData.getUserById(updatedData.friendId);
+  } catch (e) {
+    res.status(404).json({error: "FriendID not found"});
+  }
+  
+  try {
+    //console.log(updatedData);
+    const updatedUser = await userData.addUserFriend(req.params.id, updatedData);
+    res.json(updatedUser);
+  } catch (e) {
+    res.status(400).json({error: "User Friend Adding Error"});
+  }
+}); //addUserEnroll end
+
+router.delete("/:userId/unfriend/:friendId", async (req, res) => {
+  try {
+    const temp = await userData.getUserById(req.params.userId);
+    
+    try {
+      const test = temp.friends.find(fr => fr.friendId === req.params.friendId);
+      if (test === undefined) {
+        throw error;
+      }
+      await userData.removeUserFriend(req.params.userId, req.params.friendId);
+      res.send();
+    } catch (e) {
+      res.status(404).json({ error: "FriendID not found"});
+    }
+  } catch (e) {
+    res.status(404).json({ error: "User ID not found"});
+  }
+
+}); //delete end
+
 module.exports = router;
