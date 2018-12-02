@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import ActivityList from './ActivityList';
+import ActivityDetail from './ActivityDetail';
 
 class ActivityContainer extends Component {
    constructor(props) {
       super(props);
       this.state = {
-        data: []
+
       };
    }
-   
    render() {
       return (
          <div>
-             Act test
-
-
              
             <Switch> 
-               
+            <Route path="/activity/" exact component={ActivityList} />
+            <Route path="/activity/:id" exact component={ActivityDetail} />
             </Switch>
          </div>
       );

@@ -137,6 +137,8 @@ col-md-4 {
 }
 /* Profile Page CSS */
 
+/*-----------------------------*/
+
 /* Help Page CSS */
 .help_advice {
   margin-top: 2vw;
@@ -149,6 +151,8 @@ col-md-4 {
   margin-bottom: 2vw;
 }
 /* Help Page CSS */
+
+/*-----------------------------*/
 
 /* Friends page CSS */
 .fr_bar {
@@ -166,7 +170,9 @@ col-md-4 {
     height:100px;
   }
 }
-
+.fr_list_wrap {
+  margin-bottom: 3vw;
+}
 .media-left {
  left:20%;
 }
@@ -175,3 +181,25 @@ col-md-4 {
   text-align: left;
 }
 /* Friends page CSS */
+
+/*-----------------------------*/
+
+/* Activity main page CSS */
+.act_list_wrap {
+  margin-bottom: 3vw;
+  border-bottom: 2px dashed grey;
+  font-family:sans-serif;
+}
+
+@media (max-width: 768px) {
+  .act_evimg {
+    width:100px;
+    height:100px;
+  }
+}
+
+.act_detailButton_wrap {
+  margin-top: 3vw;
+  
+}
+/* Activity main page CSS */

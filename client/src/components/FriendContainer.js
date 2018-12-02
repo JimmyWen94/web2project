@@ -47,7 +47,7 @@ class FriendContainer extends Component {
 
    //   }
       if (this.state.friendNum >= 1) {
-         console.log("Setting friend List ...");
+         // console.log("Setting friend List ...");
          this.createFriendList();
       }
    } catch (e) {
@@ -78,6 +78,9 @@ class FriendContainer extends Component {
             {/* <span className='fr_list_name'>{fName} {LName}</span> */}
                <Media.Body>
                <Media.Heading>{fName} {LName}</Media.Heading>
+               <br/>
+               <br/>
+               <br/>
                <p>{intro}</p>
                </Media.Body>
             </Media>
@@ -98,7 +101,7 @@ class FriendContainer extends Component {
    // }
 
    render() {
-      const {data} = this.state;
+      // const {data} = this.state;
       let friendTitle;
       let listDiv;
       if (this.state.friendNum === 0) {
