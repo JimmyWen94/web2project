@@ -149,3 +149,29 @@ col-md-4 {
   margin-bottom: 2vw;
 }
 /* Help Page CSS */
+
+/* Friends page CSS */
+.fr_bar {
+  font-size:1.5vw;
+  /* border-bottom:1px solid grey; */
+}
+
+.fr_bar_plus {
+  margin-right: 3vw;
+}
+
+@media (max-width: 768px) {
+  .fr_userimg {
+    width:100px;
+    height:100px;
+  }
+}
+
+.media-left {
+ left:20%;
+}
+.media-body {
+  
+  text-align: left;
+}
+/* Friends page CSS */

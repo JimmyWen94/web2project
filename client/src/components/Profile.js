@@ -53,6 +53,7 @@ class Profile extends Component {
         // let imgSrc = "http://localhost:3001/public/assets/images/userIMG/" + this.state.photo;
         const {data} = this.state;
         // console.log(data.enroll_ev);
+        //check Tv-MAZE
         let currentEvElement = this.state.enroll_ev.map(ev => 
             <li className='li_pro_ev' key = {ev.eventId}>
             {ev.title} 
