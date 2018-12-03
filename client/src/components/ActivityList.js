@@ -4,6 +4,8 @@ import axios from 'axios';
 import {Button, Glyphicon, Media} from 'react-bootstrap'; 
 import ActivityDetail from './ActivityDetail';
 import { LinkContainer } from 'react-router-bootstrap';
+import ActivityCreate from './ActivityCreate';
+
 class ActivityList extends Component {
    constructor(props) {
       super(props);
@@ -26,9 +28,9 @@ class ActivityList extends Component {
             actList: response.data.enroll_ev
          });
          this.setState({actNum: this.state.actList.length});
-         if (this.state.actNum >= 1) {
-            this.createActList();
-         }
+         
+         this.createActList();
+         
       } catch(e) {
          console.log(e);
       }
@@ -36,18 +38,20 @@ class ActivityList extends Component {
 
    async createActList() {
       let tempDiv = [];
-      let response;
-         for (let i = 0; i < this.state.actNum; i++) {
-            let eventId = this.state.actList[i].eventId
-            let url = 'http://localhost:3001/api/events/' + eventId;
+      try {
+         let response = await axios.get("http://localhost:3001/api/events", {crossdomain:true});
+         // console.log(response.data[0]._id);
+         for (let i = 0; i < response.data.length; i++) {
+            // let url = 'http://localhost:3001/api/events/';
             // console.log(url);
-            response = await axios.get(url,{crossdomain:true});
-            let title = response.data.title;
-            let type = response.data.type;
-            let place = response.data.place;
-            let date = response.data.date;
-            let time = response.data.time;
-            let description = response.data.description; 
+            // response = await axios.get(url,{crossdomain:true});
+            let eventId = response.data[i]._id
+            let title = response.data[i].title;
+            let type = response.data[i].type;
+            let place = response.data[i].place;
+            let date = response.data[i].date;
+            let time = response.data[i].time;
+            let description = response.data[i].description; 
             // let enroll = response.data.enroll; 
             // console.log(fName + " " + LName);
             // console.log(i);
@@ -69,13 +73,17 @@ class ActivityList extends Component {
                   <LinkContainer to={linkUrl}>
                   <Button><Glyphicon glyph='list-alt' />Details</Button>
                   </LinkContainer>
+                  <Button className='act_button_join'><Glyphicon glyph='plus' />Join Now</Button>
                </div>
                </Media.Body>
             </Media>
             </div>; //wrap end
             tempDiv.push(current);
          }
-         this.setState({ListDiv:tempDiv})
+      } catch(e) {
+         console.log(e);
+      }
+      this.setState({ListDiv:tempDiv})
    }
    render() {
       let actTitle;
@@ -90,10 +98,14 @@ class ActivityList extends Component {
          <div>
             
             {actTitle}
+            <LinkContainer to="/activity/new/create">
+            <Button className='act_button_create'>Create your own Event</Button>
+            </LinkContainer>
             {listDiv}
              
             <Switch> 
             <Route path="/activity/:id" exact component={ActivityDetail} />
+            <Route path="/activity/new/create" exact component={ActivityCreate} />
             </Switch>
          </div>
       );
