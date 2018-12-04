@@ -34,9 +34,7 @@ class ActivityCreate extends Component {
     handleSubmit = event => {
         event.preventDefault();
     
-        const user = {
-          abc: this.state.title
-        };
+        
         // console.log(this.state.type);
         // console.log(this.state.title);
         // console.log(this.state.type);

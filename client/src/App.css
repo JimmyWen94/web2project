@@ -5,6 +5,7 @@
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 15vw;
+  margin-bottom: 2vw;
 }
 
 .App-header {
@@ -134,7 +135,18 @@ col-md-4 {
 
 .li_pro_ev {
   font-size:1.5vw;
+  border: ridge;
+  border-color:rgb(16, 219, 16);
 }
+.carousel {
+  color:black;
+}
+.carousel img {
+  min-width: 100%;
+  max-height: 30vh;
+  max-width: none;
+}
+
 /* Profile Page CSS */
 
 /*-----------------------------*/
@@ -160,8 +172,15 @@ col-md-4 {
   /* border-bottom:1px solid grey; */
 }
 
+.fr_top_wrap {
+  border-bottom: dashed;
+}
+
 .fr_bar_plus {
   margin-right: 3vw;
+}
+.fr_bar_remove {
+  color:black;
 }
 
 @media (max-width: 768px) {
@@ -172,6 +191,7 @@ col-md-4 {
 }
 .fr_list_wrap {
   margin-bottom: 3vw;
+  border-bottom: 1vw ridge orange;
 }
 .media-left {
  left:20%;

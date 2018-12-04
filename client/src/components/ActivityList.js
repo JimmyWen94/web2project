@@ -109,7 +109,9 @@ class ActivityList extends Component {
    searchHandler(event) {
       this.setState({term: event.target.value})
    }
-
+   handleClick() {
+      alert('Successfully Join the Event!');
+  }
    render() {
       let actTitle;
       let listDiv;
@@ -174,7 +176,7 @@ class ActivityList extends Component {
                      <LinkContainer to={ev.linkUrl}>
                      <Button><Glyphicon glyph='list-alt' />Details</Button>
                      </LinkContainer>
-                     <Button className='act_button_join'><Glyphicon glyph='plus' />Join Now</Button>
+                     <Button className='act_button_join' onClick={this.handleClick}><Glyphicon glyph='plus' />Join Now</Button>
                      </div>
                      </Media.Body>
                   </Media>

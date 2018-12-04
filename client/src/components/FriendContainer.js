@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import axios from "axios";
 import {Button, Glyphicon, Media} from 'react-bootstrap'; 
 class FriendContainer extends Component {
@@ -62,7 +62,7 @@ class FriendContainer extends Component {
             let url = "http://localhost:3001/api/users/" + this.state.friendsList[i].friendId;
             // console.log(url);
             response = await axios.get(url,{crossdomain:true});
-            let photo = response.data.photo;
+            // let photo = response.data.photo;
             let fName = response.data.fName;
             let LName = response.data.LName;
             let fullName = fName + LName;
@@ -112,19 +112,24 @@ class FriendContainer extends Component {
       }
       return (
          <div>
+             <div className='fr_top_wrap'>
              <div className='fr_bar'>
-             
-             <span className='fr_bar_plus'>
+             <Button bsStyle="primary" className='fr_bar_plus'>
+             <span >
                 <Glyphicon glyph='plus' />Add Friend
              </span>
+             </Button>
+             <Button bsStyle='danger'>
              <span className='fr_bar_remove'>
                 <Glyphicon glyph='remove' />Unfriend
              </span>
+             </Button>
              <br />
              
              </div>
              {friendTitle}
-             
+             </div>
+
              {listDiv}
              
              

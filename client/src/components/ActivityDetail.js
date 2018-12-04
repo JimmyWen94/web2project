@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import {Button, Glyphicon, Media} from 'react-bootstrap'; 
 import { LinkContainer } from 'react-router-bootstrap';
 
-import { Route, Switch } from 'react-router-dom';
 class ActivityDetail extends Component {
     constructor(props) {
         super(props);

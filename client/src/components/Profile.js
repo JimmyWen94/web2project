@@ -3,6 +3,7 @@ import axios from "axios";
 import wzimg from "../img/userIMG/weizhang.jpg";
 
 import {Button, Glyphicon} from 'react-bootstrap'; 
+import {Grid, Row, Col} from 'react-bootstrap';
 class Profile extends Component {
     constructor(props) {
        super(props);
@@ -85,9 +86,16 @@ class Profile extends Component {
                     Enrolled Event <Glyphicon glyph='arrow-down'/>
                 </p>
                 </div>
+                <Grid>
+                    <Row>
+                    <Col sm={4} md={4}></Col>
+                        <Col sm={4} md={4}>
                 <p className='pro_ev_list'>
                     {currentEvElement}
                 </p>
+                </Col>
+                </Row>
+                </Grid>
            </div>
        );
     
