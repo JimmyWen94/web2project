@@ -19,6 +19,7 @@ class ActivityCreate extends Component {
             creator:'', //current is origin
             safe:'' //curent is 1
        };
+       
     }
 
     componentDidMount() {
@@ -62,16 +63,51 @@ class ActivityCreate extends Component {
         // postData.safe = "1";
         console.log(postData);
         let eventId;
+        
         axios.post(`http://localhost:3001/api/events/`, postData)
         .then(res => {
             console.log(res);
             console.log(res.data);
             eventId = res.data._id;
+            // creatorEvIdAdd(res.data);
+            
+            let EvData = res.data;
+            let newEv = {
+              eventId: EvData._id,
+              title: EvData.title,
+              date: EvData.date,
+              time: EvData.time
+            }
+
+            let userId = "1a2cbe1c-20d1-409c-9e09-bccaaf2d995d";
+            let fName = "Wei";
+            let LName = "Zhang";
+            let url = 'http://localhost:3001/api/users/' + userId + '/enroll_ev';
+            
+            axios.post(url, newEv);
+            let urlEv = 'http://localhost:3001/api/events/' + eventId + '/enroll';
+            let userD = {
+              userId: userId,
+              fName: fName,
+              LName: LName
+           }
+           // console.log(userD);
+           let response2 = axios.post(urlEv, userD).then(res => {
+            console.log(response2)
             this.props.history.push(`/activity/${eventId}`);
+           });
+           
+           
         })
+        
         //currently has html error because it will render page first.
         
     }
+
+    async creatorEvIdAdd(EvData) {
+
+    }
+    
     
     // getValidationState() {
     //     const length = this.state.value.length;

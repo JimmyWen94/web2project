@@ -225,13 +225,18 @@ col-md-4 {
 
 .act_button_join {
   margin-left: 3vw;
-  background-color:rgb(241, 62, 62);
-  color:white;
+  background-color:rgb(253, 82, 82);
+  color:rgb(255, 255, 255);
+}
+.act_button_leave {
+  margin-left: 3vw;
+  background-color:rgb(34, 121, 236);
+  color:black;
 }
 .act_button_create {
   margin-bottom: 1vw;
   background-color: #f13a59;
-  color:white;
+  color:rgb(255, 235, 235);
   font-size:1.4vw;
 }
 

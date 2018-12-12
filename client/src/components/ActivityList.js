@@ -21,7 +21,8 @@ class ActivityList extends Component {
         actList: [],
         actNum: 0,
         ListDiv: [],
-        term: ''
+        term: '',
+        enrolledEv: []
       };
       this.searchHandler = this.searchHandler.bind(this);
    }
@@ -37,7 +38,7 @@ class ActivityList extends Component {
             actList: response.data.enroll_ev
          });
          this.setState({actNum: this.state.actList.length});
-         
+         this.getEnrolledEv();
          this.createActList();
          
       } catch(e) {
@@ -45,6 +46,21 @@ class ActivityList extends Component {
       }
    }
 
+   async getEnrolledEv() {
+      let userId = '1a2cbe1c-20d1-409c-9e09-bccaaf2d995d'
+      try {
+         let url = "http://localhost:3001/api/users/" + userId;
+         let response = await axios.get(url, {crossdomain:true});
+         let evList = [];
+         for (let i = 0; i < response.data.enroll_ev.length; i++) {
+            evList.push(response.data.enroll_ev[i].eventId);
+         }
+         this.setState({enrolledEv:evList});
+         console.log(this.state.enrolledEv);
+      } catch (e) {
+         console.log(e);
+      }
+   }
    async createActList() {
       let tempDiv = [];
       try {
@@ -109,9 +125,67 @@ class ActivityList extends Component {
    searchHandler(event) {
       this.setState({term: event.target.value})
    }
-   handleClick() {
-      alert('Successfully Join the Event!');
-  }
+
+   //fn when click for join event
+   async clickJoin(id) {
+      let userId = '1a2cbe1c-20d1-409c-9e09-bccaaf2d995d';
+      try {
+         console.log(id);
+         let urlEv = "http://localhost:3001/api/events/" + id +"/";
+         let EvData = await axios.get(urlEv, {crossdomain:true});
+         let postD = {
+            eventId: EvData.data._id,
+            title: EvData.data.title,
+            date: EvData.data.date,
+            time: EvData.data.time
+         }
+         // console.log(postD);
+         let urlUser = "http://localhost:3001/api/users/" + userId +"/enroll_ev";
+         let response = await axios.post(urlUser, postD);
+         console.log(response);
+
+         let urlEvUp = "http://localhost:3001/api/events/" + id + "/enroll";
+         let userD = {
+            userId: this.state.data._id,
+            fName: this.state.data.fName,
+            LName: this.state.data.LName
+         }
+         // console.log(userD);
+         let response2 = await axios.post(urlEvUp, userD);
+         console.log(response2);
+         alert("Join Success");
+         this.props.history.push(`/activity/${id}`);
+         //this has error since creator does not count as enroll the event. 
+      } catch(e) {
+         console.log(e)
+      }
+   }
+
+   async clickLeave(id) {
+      let userId = '1a2cbe1c-20d1-409c-9e09-bccaaf2d995d';
+      try {
+         let urlUser = "http://localhost:3001/api/users/" + userId +"/" + id;
+         let response = await axios.delete(urlUser);
+         console.log(response);
+         //this has error since creator does not count as enroll the event. 
+         let urlEv = "http://localhost:3001/api/events/" + id +"/" + userId;
+         let response2 = await axios.delete(urlEv);
+         console.log(response2);
+         alert("Leave Success");
+         this.props.history.push(`/activity/${id}`);
+      } catch {
+
+      }
+   }
+   //render button based on whether user join or not
+   buttonRender(eventId) {
+      if (this.state.enrolledEv.indexOf(eventId) !== -1) {
+         return <Button className='act_button_leave' onClick={this.clickLeave.bind(this, eventId)}><Glyphicon glyph='remove' />Leave Now</Button>
+      } else {
+         return <Button className='act_button_join' onClick={this.clickJoin.bind(this, eventId)}><Glyphicon glyph='plus' />Join Now</Button>
+      }
+   }
+
    render() {
       let actTitle;
       let listDiv;
@@ -141,6 +215,7 @@ class ActivityList extends Component {
         <HelpBlock>Activitiy matched will automatically shows below.</HelpBlock>
       </FormGroup>
       </form>
+
       return (
          <div>
             <div className='actL_title_wrap'>
@@ -176,7 +251,9 @@ class ActivityList extends Component {
                      <LinkContainer to={ev.linkUrl}>
                      <Button><Glyphicon glyph='list-alt' />Details</Button>
                      </LinkContainer>
-                     <Button className='act_button_join' onClick={this.handleClick}><Glyphicon glyph='plus' />Join Now</Button>
+                     {this.buttonRender(ev.eventId)}
+                     
+                     {/* <Button className='act_button_join' onClick={this.handleClick.bind(this, ev.eventId)}><Glyphicon glyph='plus' />Join Now</Button> */}
                      </div>
                      </Media.Body>
                   </Media>

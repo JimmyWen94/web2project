@@ -114,7 +114,7 @@ class ActivityDetail extends Component {
                 {this.state.ListDiv}
                 </div>
                 <div className='actD_button_wrap'>
-                <Button className='actD_button_join' onClick={this.handleClick}><Glyphicon glyph='plus' />Join Now</Button>
+                {/* <Button className='actD_button_join' onClick={this.handleClick}><Glyphicon glyph='plus' />Join Now</Button> */}
                 <LinkContainer className='actD_linkC' to='/activity'>
                 <Button><Glyphicon glyph='chevron-left' />Back to List</Button>
                 </LinkContainer>
