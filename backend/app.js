@@ -1,5 +1,11 @@
 const express = require("express");
 const app = express();
+
+const server = require('http').createServer(app);
+const io = module.exports.io = require('socket.io')(server);
+
+const SocketManager = require('./socketio/SocketManager');
+
 const configRoutes = require("./routes");
 const bodyParser = require("body-parser"); //json
 const cors = require('cors');
@@ -41,7 +47,9 @@ app.use("/public", static);
 // app.use(tracker);
 configRoutes(app);
 
-app.listen(3001, () => {
+io.on('connection', SocketManager);
+
+server.listen(3231, () => {
     console.log("We've now got a server!");
-    console.log("Your routes will be running on http://localhost:3001");
+    console.log("Your routes will be running on http://localhost:3231");
 });
