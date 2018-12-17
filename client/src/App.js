@@ -11,6 +11,7 @@ import FriendContainer from './components/FriendContainer';
 import ActivityContainer from './components/ActivityContainer';
 import Profile from './components/Profile';
 import Help from './components/Help';
+import ReadMe from './components/ReadMe';
 
 class App extends Component {
   render() {
@@ -57,6 +58,15 @@ class App extends Component {
             </NavItem>
             </LinkContainer>
             </Nav>
+
+            <Nav>
+            <LinkContainer to="/readme">
+            <NavItem>
+            Readme
+            </NavItem>
+            </LinkContainer>
+            </Nav>
+
           </Navbar.Collapse>
           </Navbar>
         </header>
@@ -71,6 +81,7 @@ class App extends Component {
           <Route path="/activity" component={ActivityContainer} />
           <Route path="/profile" component={Profile} />
           <Route path="/help" component={Help} />
+          <Route path="/readme" component={ReadMe} />
           <Route path="*" component={ErrorPage} />
         </Switch>
         </div>
